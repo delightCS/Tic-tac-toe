@@ -13,8 +13,10 @@ function GameBoard() {
   }
   const getBoard = () => board;
   const setMark = (index, player) => {
-    if (board[index] !== "") return;
-    board[index] = player;
+    const row = Math.floor(index / 3);
+    const col = index % 3;
+    if (board[row][col].getValue() !== "") return;
+    board[row][col].setValue(player);
   };
 
   const printBoard = () => {
@@ -30,13 +32,13 @@ function GameBoard() {
 function Cell() {
   let value = "";
 
-  const setToken = (player) => {
+  const setValue = (player) => {
     value = player;
   };
 
   const getValue = () => value;
 
-  return { setToken, getValue };
+  return { setValue, getValue };
 }
 
 // GAME CONTROLLER FUNCTION
@@ -67,18 +69,66 @@ function GameController(
 
   const printNewRound = () => {
     board.printBoard();
-    console.log(`{getActivePlayer().name}'s turn.`);
+    console.log(`${getActivePlayer().name}'s turn.`);
   };
 
   const playRound = (index) => {
     board.setMark(index, getActivePlayer().mark);
-    switchPlayerTurn();
     printNewRound();
+    switchPlayerTurn();
   };
 
   printNewRound();
 
-  return { playRound, getActivePlayer };
+  return { playRound, getActivePlayer, getBoard: board.getBoard };
 }
-
 const game = GameController();
+
+// SCREEN CONTROLLER FUNCTION
+function ScreenController() {
+  const playerTurnDiv = document.querySelector(".turn");
+  const boardDiv = document.querySelector(".board");
+
+  const updateScreen = () => {
+    boardDiv.textContent = "";
+    const board = game.getBoard();
+    const activePlayer = game.getActivePlayer();
+
+    playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
+
+    board.forEach((rows, rowIndex) => {
+      rows.forEach((cell, colIndex) => {
+        const cellDiv = document.createElement("div");
+        cellDiv.textContent = cell.getValue();
+        cellDiv.classList.add(
+          "cell",
+          "flex",
+          "items-center",
+          "justify-center",
+          "text-center",
+          "text-3xl",
+          "border",
+          "border-black",
+          "cursor-pointer",
+          "bg-gray-400",
+          "w-full",
+          "h-full"
+        );
+        const flatIndex = rowIndex * 3 + colIndex;
+        cellDiv.setAttribute("data-index", flatIndex);
+        boardDiv.appendChild(cellDiv);
+      });
+    });
+  };
+
+  function clickHandler(e) {
+    const selectedCell = e.target.dataset.index;
+    if (!selectedCell) return;
+
+    game.playRound(+selectedCell);
+    updateScreen();
+  }
+  boardDiv.addEventListener("click", clickHandler);
+  updateScreen();
+}
+ScreenController();
