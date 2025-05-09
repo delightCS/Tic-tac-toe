@@ -6,7 +6,6 @@ function GameBoard() {
 
   for (let i = 0; i < rows; i++) {
     board[i] = [];
-
     for (let j = 0; j < columns; j++) {
       board[i].push(Cell());
     }
@@ -31,13 +30,10 @@ function GameBoard() {
 // CELL FUNCTION
 function Cell() {
   let value = "";
-
   const setValue = (player) => {
     value = player;
   };
-
   const getValue = () => value;
-
   return { setValue, getValue };
 }
 
@@ -60,11 +56,9 @@ function GameController(
   ];
 
   let activePlayer = player[0];
-
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === player[0] ? player[1] : player[0];
   };
-
   const getActivePlayer = () => activePlayer;
 
   const printNewRound = () => {
@@ -77,9 +71,7 @@ function GameController(
     printNewRound();
     switchPlayerTurn();
   };
-
   printNewRound();
-
   return { playRound, getActivePlayer, getBoard: board.getBoard };
 }
 const game = GameController();
@@ -93,12 +85,12 @@ function ScreenController() {
     boardDiv.textContent = "";
     const board = game.getBoard();
     const activePlayer = game.getActivePlayer();
-
     playerTurnDiv.textContent = `${activePlayer.name}'s turn`;
 
     board.forEach((rows, rowIndex) => {
       rows.forEach((cell, colIndex) => {
         const cellDiv = document.createElement("div");
+        isEmpty = cell.getValue() === "";
         cellDiv.textContent = cell.getValue();
         cellDiv.classList.add(
           "cell",
@@ -112,7 +104,8 @@ function ScreenController() {
           "cursor-pointer",
           "bg-gray-400",
           "w-full",
-          "h-full"
+          "h-full",
+          isEmpty ? "cursor-pointer" : "cursor-default"
         );
         const flatIndex = rowIndex * 3 + colIndex;
         cellDiv.setAttribute("data-index", flatIndex);
@@ -125,7 +118,12 @@ function ScreenController() {
     const selectedCell = e.target.dataset.index;
     if (!selectedCell) return;
 
-    game.playRound(+selectedCell);
+    const index = parseInt(selectedCell);
+    const board = game.getBoard();
+    const row = Math.floor(index / 3);
+    const col = index % 3;
+    if (board[row][col].getValue() !== "") return;
+    game.playRound(index);
     updateScreen();
   }
   boardDiv.addEventListener("click", clickHandler);

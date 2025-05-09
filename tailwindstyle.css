@@ -596,7 +596,7 @@ video {
   display: grid;
 }
 
-.h-96 {
+.h-\[24rem\] {
   height: 24rem;
 }
 
@@ -604,11 +604,7 @@ video {
   height: 100%;
 }
 
-.h-\[24rem\] {
-  height: 24rem;
-}
-
-.w-96 {
+.w-\[24rem\] {
   width: 24rem;
 }
 
@@ -616,12 +612,16 @@ video {
   width: 100%;
 }
 
-.w-\[24rem\] {
-  width: 24rem;
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
 }
 
 .grid-cols-3 {
