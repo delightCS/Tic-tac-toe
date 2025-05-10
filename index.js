@@ -66,13 +66,54 @@ function GameController(
     console.log(`${getActivePlayer().name}'s turn.`);
   };
 
+  const checkWin = () => {
+    const boardState = board.getBoard();
+    const winningCombinations = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
+    ];
+
+    for (let combination of winningCombinations) {
+      const [a, b, c] = combination;
+      const rowA = Math.floor(a / 3);
+      const colA = a % 3;
+      const rowB = Math.floor(b / 3);
+      const colB = b % 3;
+      const rowC = Math.floor(c / 3);
+      const colC = c % 3;
+
+      if (
+        boardState[rowA][colA].getValue() !== "" &&
+        boardState[rowA][colA].getValue() ===
+          boardState[rowB][colB].getValue() &&
+        boardState[rowA][colA].getValue() === boardState[rowC][colC].getValue()
+      ) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   const playRound = (index) => {
     board.setMark(index, getActivePlayer().mark);
+
+    if (checkWin()) {
+      console.log(`${getActivePlayer().name} wins!`);
+      return;
+    }
+
     printNewRound();
     switchPlayerTurn();
   };
+
   printNewRound();
-  return { playRound, getActivePlayer, getBoard: board.getBoard };
+  return { playRound, getActivePlayer, getBoard: board.getBoard, checkWin };
 }
 const game = GameController();
 
