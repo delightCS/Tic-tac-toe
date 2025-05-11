@@ -103,8 +103,9 @@ function GameController(
   const playRound = (index) => {
     board.setMark(index, getActivePlayer().mark);
 
+    const winnerName = document.querySelector(".winner");
     if (checkWin()) {
-      console.log(`${getActivePlayer().name} wins!`);
+      winnerName.textContent = `${getActivePlayer().name} wins!`;
       return;
     }
 
@@ -138,15 +139,16 @@ function ScreenController() {
           "flex",
           "items-center",
           "justify-center",
+          "rounded-lg",
           "text-center",
           "text-3xl",
           "border",
           "border-black",
           "cursor-pointer",
           "bg-gray-400",
-          "w-full",
-          "h-full",
-          isEmpty ? "cursor-pointer" : "cursor-default"
+          "w-32",
+          "h-32",
+          isEmpty ? "cursor-pointer" : "cursor-not-allowed"
         );
         const flatIndex = rowIndex * 3 + colIndex;
         cellDiv.setAttribute("data-index", flatIndex);

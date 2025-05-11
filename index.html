@@ -8,9 +8,22 @@
     <link rel="stylesheet" href="tailwindstyle.css " />
   </head>
   <body>
-    <div class="container">
-      <div class="turn"></div>
-      <div class="board grid grid-cols-3 w-[24rem] h-[24rem] gap-1"></div>
+    <div>
+      <div class="text-center">
+        <h1 class="text-4xl font-bold">Tic Tac Toe</h1>
+        <h2 class="text-xl font-bold">
+          Rules: The first player to get 3 in a row wins!
+        </h2>
+      </div>
+      <div class="">
+        <div class="flex justify-center">
+          <div class="board grid grid-cols-3 gap-1"></div>
+        </div>
+        <div class="text-center">
+          <div class="turn"></div>
+          <div class="winner"></div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
