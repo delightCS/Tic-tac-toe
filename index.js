@@ -100,6 +100,16 @@ function GameController(
     return false;
   };
 
+  const checkDraw = () => {
+    const boardState = board.getBoard();
+    for (let row of boardState) {
+      for (let cell of row) {
+        if (cell.getValue() === "") return false;
+      }
+    }
+    return true;
+  };
+
   const playRound = (index) => {
     board.setMark(index, getActivePlayer().mark);
 
@@ -109,12 +119,23 @@ function GameController(
       return;
     }
 
+    if (checkDraw()) {
+      winnerName.textContent = "It's a draw!";
+      return;
+    }
+
     printNewRound();
     switchPlayerTurn();
   };
 
   printNewRound();
-  return { playRound, getActivePlayer, getBoard: board.getBoard, checkWin };
+  return {
+    playRound,
+    getActivePlayer,
+    getBoard: board.getBoard,
+    checkWin,
+    checkDraw,
+  };
 }
 const game = GameController();
 
