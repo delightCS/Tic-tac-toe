@@ -154,7 +154,15 @@ function ScreenController() {
       rows.forEach((cell, colIndex) => {
         const cellDiv = document.createElement("div");
         isEmpty = cell.getValue() === "";
-        cellDiv.textContent = cell.getValue();
+
+        if (!isEmpty) {
+          const img = document.createElement("img");
+          img.src =
+            cell.getValue() === "X" ? "mark/close.svg" : "mark/circle.svg";
+          img.alt = cell.getValue();
+          img.classList.add("w-16", "h-16");
+          cellDiv.appendChild(img);
+        }
         cellDiv.classList.add(
           "cell",
           "flex",
@@ -162,14 +170,15 @@ function ScreenController() {
           "justify-center",
           "rounded-lg",
           "text-center",
-          "text-3xl",
+          "font-bold",
+          "text-5xl",
           "border",
           "border-black",
           "cursor-pointer",
           "bg-gray-400",
           "w-32",
           "h-32",
-          isEmpty ? "cursor-pointer" : "cursor-not-allowed"
+          isEmpty ? "cursor-pointer" : "cursor-default"
         );
         const flatIndex = rowIndex * 3 + colIndex;
         cellDiv.setAttribute("data-index", flatIndex);
