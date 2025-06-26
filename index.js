@@ -55,6 +55,11 @@ function GameController(
     },
   ];
 
+  const setPlayerNames = (name1, name2) => {
+    player[0].name = name1;
+    player[1].name = name2;
+  };
+
   let activePlayer = player[0];
   const switchPlayerTurn = () => {
     activePlayer = activePlayer === player[0] ? player[1] : player[0];
@@ -135,6 +140,7 @@ function GameController(
     getBoard: board.getBoard,
     checkWin,
     checkDraw,
+    setPlayerNames,
   };
 }
 const game = GameController();
@@ -201,5 +207,18 @@ function ScreenController() {
   }
   boardDiv.addEventListener("click", clickHandler);
   updateScreen();
+
+  const dialog = document.querySelector("dialog");
+  dialog.showModal();
+
+  const playerForm = document.querySelector("form");
+  playerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const playerOneName = document.querySelector("#playerOne").value;
+    const playerTwoName = document.querySelector("#playerTwo").value;
+    game.setPlayerNames(playerOneName, playerTwoName);
+    dialog.close();
+    updateScreen();
+  });
 }
 ScreenController();
