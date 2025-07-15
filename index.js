@@ -125,10 +125,6 @@ function GameController(
     switchPlayerTurn();
   };
 
-  // if (typeof playerOneName !== "string" || typeof playerTwoName !== "string") {
-  //   throw new Error("Player names must be strings");
-  // }
-
   return {
     playRound,
     getActivePlayer,

@@ -7,11 +7,11 @@
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="tailwindstyle.css " />
   </head>
-  <body class="min-h-screen relative">
+  <body class="min-h-screen relative font-primaryText">
     <div class="">
       <div class="text-center mb-10 pt-4">
-        <h1 class="text-4xl font-bold">Tic Tac Toe</h1>
-        <h2 class="text-xl font-bold">
+        <h1 class="text-8xl font-bold font-titleText">Tic Tac Toe</h1>
+        <h2 class="text-3xl font-bold">
           Rules: The first player to get 3 in a row wins!
         </h2>
       </div>
@@ -19,51 +19,64 @@
         <div class="flex justify-center">
           <div class="board grid grid-cols-3 gap-1"></div>
         </div>
-        <div class="text-center">
+        <div class="text-center p-4 text-2xl font-bold">
           <div class="turn"></div>
           <div class="winner"></div>
         </div>
-        <div class="flex justify-center pb-4 absolute bottom-0 left-[50%] translate-x-[-50%]">
+        <div
+          class="flex justify-center pb-4 absolute bottom-4 left-[50%] translate-x-[-50%]"
+        >
           <button
-            class="resetButton border-black border-2 rounded-full px-6 py-2 bg-white"
-            
+            class="resetButton border-black border-2 px-6 py-2 bg-white rounded-lg"
           >
             Play Again
           </button>
+        </div>
+        <div>
+          <h2 class="absolute bottom-0 left-[50%] translate-x-[-50%]">
+            Reload to start a new game
+          </h2>
+        </div>
       </div>
 
-      <dialog>
+      <dialog class="rounded-lg">
         <form>
-          <div class="text-center p-12">
-            <h2 class="text-2xl font-bold">Enter your name</h2>
-            <div class="grid grid-rows-2 justify-center gap-4">
+          <div class="text-center py-4 px-4">
+            <h2 class="text-2xl font-bold pb-4">Enter your names</h2>
+            <div class="grid grid-rows-2 justify-center gap-4 pb-4">
               <div>
-                <label class="flex justify-center items-center font-bold">
-                  Player
-                  <img src="mark/close.svg" alt="X" class="h-8 w-8" />
+                <label class="font-bold">
+                  <div class="flex items-center justify-start gap-2 text-2xl">
+                    Player
+                    <img src="mark/close.svg" alt="X" class="h-8 w-8" />
+                  </div>
                   <input
+                    required
                     type="text"
                     name="Xname"
                     id="playerOne"
-                    class="border-black border-2 px-2 rounded-lg"
+                    class="border-black border-2 px-2 py-2 text-2xl rounded-lg"
                   />
                 </label>
               </div>
               <div>
-                <label class="flex font-bold">
-                  Player
-                  <img src="mark/circle.svg" alt="circle" class="h-8 w-8" />
+                <label class="font-bold">
+                  <div class="flex items-center justify-start gap-2 text-2xl">
+                    Player
+                    <img src="mark/circle.svg" alt="circle" class="h-8 w-8" />
+                  </div>
                   <input
+                    required
                     type="text"
                     name="Oname"
                     id="playerTwo"
-                    class="border-black border-2 px-2 rounded-lg"
+                    class="border-black border-2 px-2 py-2 text-2xl rounded-lg"
                   />
                 </label>
               </div>
             </div>
             <button
-              class="border-black border-2 rounded-full px-6 py-2 inline-block mx-auto bg-white"
+              class="border-black border-2 px-6 py-2 inline-block mx-auto bg-white rounded-lg"
             >
               Play
             </button>
