@@ -60,6 +60,10 @@ function GameController(
   };
   const getActivePlayer = () => activePlayer;
 
+  const resetActivePlayer = () => {
+    activePlayer = player[0];
+  };
+
   const checkWin = () => {
     const boardState = board.getBoard();
     const winningCombinations = [
@@ -121,6 +125,10 @@ function GameController(
     switchPlayerTurn();
   };
 
+  // if (typeof playerOneName !== "string" || typeof playerTwoName !== "string") {
+  //   throw new Error("Player names must be strings");
+  // }
+
   return {
     playRound,
     getActivePlayer,
@@ -128,6 +136,7 @@ function GameController(
     checkWin,
     checkDraw,
     setPlayerNames,
+    resetActivePlayer,
   };
 }
 const game = GameController();
@@ -215,7 +224,7 @@ function ScreenController() {
     game.getBoard().forEach((row) => row.forEach((cell) => cell.setValue("")));
     const winnerName = document.querySelector(".winner");
     winnerName.textContent = "";
-
+    game.resetActivePlayer();
     updateScreen();
   });
 }
