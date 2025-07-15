@@ -18,13 +18,7 @@ function GameBoard() {
     board[row][col].setValue(player);
   };
 
-  const printBoard = () => {
-    const boardWithCellValues = board.map((row) =>
-      row.map((cell) => cell.getValue())
-    );
-    console.log(boardWithCellValues);
-  };
-  return { setMark, getBoard, printBoard };
+  return { setMark, getBoard };
 }
 
 // CELL FUNCTION
@@ -65,11 +59,6 @@ function GameController(
     activePlayer = activePlayer === player[0] ? player[1] : player[0];
   };
   const getActivePlayer = () => activePlayer;
-
-  const printNewRound = () => {
-    board.printBoard();
-    console.log(`${getActivePlayer().name}'s turn.`);
-  };
 
   const checkWin = () => {
     const boardState = board.getBoard();
@@ -129,11 +118,9 @@ function GameController(
       return;
     }
 
-    printNewRound();
     switchPlayerTurn();
   };
 
-  printNewRound();
   return {
     playRound,
     getActivePlayer,
@@ -184,7 +171,7 @@ function ScreenController() {
           "bg-gray-400",
           "w-32",
           "h-32",
-          isEmpty ? "cursor-pointer" : "cursor-default"
+          isEmpty ? "cursor-pointer" : "cursor-not-allowed"
         );
         const flatIndex = rowIndex * 3 + colIndex;
         cellDiv.setAttribute("data-index", flatIndex);
@@ -193,6 +180,7 @@ function ScreenController() {
     });
   };
 
+  // Handles the click event on the game board
   function clickHandler(e) {
     const selectedCell = e.target.dataset.index;
     if (!selectedCell) return;
@@ -208,6 +196,7 @@ function ScreenController() {
   boardDiv.addEventListener("click", clickHandler);
   updateScreen();
 
+  // Handles the dialog for player names
   const dialog = document.querySelector("dialog");
   dialog.showModal();
 
@@ -218,6 +207,15 @@ function ScreenController() {
     const playerTwoName = document.querySelector("#playerTwo").value;
     game.setPlayerNames(playerOneName, playerTwoName);
     dialog.close();
+    updateScreen();
+  });
+
+  const resetButton = document.querySelector(".resetButton");
+  resetButton.addEventListener("click", () => {
+    game.getBoard().forEach((row) => row.forEach((cell) => cell.setValue("")));
+    const winnerName = document.querySelector(".winner");
+    winnerName.textContent = "";
+
     updateScreen();
   });
 }

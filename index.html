@@ -7,9 +7,9 @@
     <script src="index.js" defer></script>
     <link rel="stylesheet" href="tailwindstyle.css " />
   </head>
-  <body>
-    <div class="mb-16">
-      <div class="text-center mb-10 mt-5">
+  <body class="min-h-screen relative">
+    <div class="">
+      <div class="text-center mb-10 pt-4">
         <h1 class="text-4xl font-bold">Tic Tac Toe</h1>
         <h2 class="text-xl font-bold">
           Rules: The first player to get 3 in a row wins!
@@ -23,6 +23,13 @@
           <div class="turn"></div>
           <div class="winner"></div>
         </div>
+        <div class="flex justify-center pb-4 absolute bottom-0 left-[50%] translate-x-[-50%]">
+          <button
+            class="resetButton border-black border-2 rounded-full px-6 py-2 bg-white"
+            
+          >
+            Play Again
+          </button>
       </div>
 
       <dialog>
@@ -30,26 +37,30 @@
           <div class="text-center p-12">
             <h2 class="text-2xl font-bold">Enter your name</h2>
             <div class="grid grid-rows-2 justify-center gap-4">
-              <label class="flex font-bold">
-                Player
-                <img src="mark/close.svg" alt="X" class="h-8 w-8" />
-                <input
-                  type="text"
-                  name="Xname"
-                  id="playerOne"
-                  class="border-black border-2 px-2 rounded-lg"
-                />
-              </label>
-              <label class="flex font-bold">
-                Player
-                <img src="mark/circle.svg" alt="circle" class="h-8 w-8" />
-                <input
-                  type="text"
-                  name="Oname"
-                  id="playerTwo"
-                  class="border-black border-2 px-2 rounded-lg"
-                />
-              </label>
+              <div>
+                <label class="flex justify-center items-center font-bold">
+                  Player
+                  <img src="mark/close.svg" alt="X" class="h-8 w-8" />
+                  <input
+                    type="text"
+                    name="Xname"
+                    id="playerOne"
+                    class="border-black border-2 px-2 rounded-lg"
+                  />
+                </label>
+              </div>
+              <div>
+                <label class="flex font-bold">
+                  Player
+                  <img src="mark/circle.svg" alt="circle" class="h-8 w-8" />
+                  <input
+                    type="text"
+                    name="Oname"
+                    id="playerTwo"
+                    class="border-black border-2 px-2 rounded-lg"
+                  />
+                </label>
+              </div>
             </div>
             <button
               class="border-black border-2 rounded-full px-6 py-2 inline-block mx-auto bg-white"
